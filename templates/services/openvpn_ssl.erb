@@ -1,0 +1,4 @@
+# SSL/TLS configuration
+ca      <%= scope.lookupvar("ssl::variables::ssl_certs") %>/ca_<%= ca %>.pem
+cert    <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%=  name %>.pem
+key     <%= scope.lookupvar("ssl::variables::ssl_private") %>/key_<%= key %>.key

@@ -1,0 +1,80 @@
+#
+# SSL/TLS Options
+#
+
+# File containing the global certificate used for ALL services (imap, pop3,
+# lmtp, sieve)
+tls_cert_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%= cert %>.pem
+
+# File containing the private key belonging to the global server certificate.
+tls_key_file: <%= scope.lookupvar("ssl::variables::ssl_private") %>/key_<%= key %>.key
+
+# File containing the certificate used for imap. If not specified, the global
+# certificate is used.  A value of "disabled" will disable SSL/TLS for imap.
+#imap_tls_cert_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cyrus-imap.pem
+
+# File containing the private key belonging to the imap-specific server
+# certificate.  If not specified, the global private key is used.  A value of
+# "disabled" will disable SSL/TLS for imap.
+#imap_tls_key_file: /private/cyrus-imap.key
+
+# File containing the certificate used for pop3. If not specified, the global
+# certificate is used.  A value of "disabled" will disable SSL/TLS for pop3.
+#pop3_tls_cert_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cyrus-pop3.pem
+
+# File containing the private key belonging to the pop3-specific server
+# certificate.  If not specified, the global private key is used.  A value of
+# "disabled" will disable SSL/TLS for pop3.
+#pop3_tls_key_file: /private/cyrus-pop3.key
+
+# File containing the certificate used for lmtp. If not specified, the global
+# certificate is used.  A value of "disabled" will disable SSL/TLS for lmtp.
+#lmtp_tls_cert_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cyrus-lmtp.pem
+
+# File containing the private key belonging to the lmtp-specific server
+# certificate.  If not specified, the global private key is used.  A value of
+# "disabled" will disable SSL/TLS for lmtp.
+#lmtp_tls_key_file: /private/cyrus-lmtp.key
+
+# File containing the certificate used for sieve. If not specified, the global
+# certificate is used.  A value of "disabled" will disable SSL/TLS for sieve.
+#sieve_tls_cert_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cyrus-sieve.pem
+
+# File containing the private key belonging to the sieve-specific server
+# certificate.  If not specified, the global private key is used.  A value of
+# "disabled" will disable SSL/TLS for sieve.
+#sieve_tls_key_file: <%= scope.lookupvar("ssl::variables::ssl_root") %>/private/cyrus-sieve.key
+
+# File containing one or more Certificate Authority (CA) certificates.
+tls_ca_file: <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%= ca %>.pem
+
+# Path to directory with certificates of CAs.
+#tls_ca_path: <%= scope.lookupvar("ssl::variables::ssl_certs") %>
+
+# The length of time (in minutes) that a TLS session will be cached for later
+# reuse.  The maximum value is 1440 (24 hours), the default.  A value of 0 will
+# disable session caching.
+tls_session_timeout: 1440
+
+# The list of SSL/TLS ciphers to allow, in decreasing order of precedence.
+# The format of the string is described in ciphers(1).  The Debian default
+# selects TLSv1 high-security ciphers only, and removes all anonymous ciphers
+# from the list (because they provide no defense against man-in-the-middle
+# attacks).  It also orders the list so that stronger ciphers come first.
+tls_cipher_list: TLSv1+HIGH:!aNULL:@STRENGTH
+
+# Require a client certificate for ALL services (imap, pop3, lmtp, sieve).
+#tls_require_cert: false
+
+# Require a client certificate for imap ONLY.
+#imap_tls_require_cert: false
+
+# Require a client certificate for pop3 ONLY.
+#pop3_tls_require_cert: false
+
+# Require a client certificate for lmtp ONLY.
+#lmtp_tls_require_cert: false
+
+# Require a client certificate for sieve ONLY.
+#sieve_tls_require_cert: false
+
