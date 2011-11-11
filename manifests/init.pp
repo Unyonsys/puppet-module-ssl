@@ -2,6 +2,13 @@ class ssl::common {
   include ssl::variables
   package { 'openssl': ensure => present }
 
+  group { 'ssl-cert':
+    ensure => present,
+    gid    => 361,
+    system => true,
+  }
+
+
   file { "${ssl::variables::ssl_root}/services" :
     ensure  => directory,
     mode    => 0644,
