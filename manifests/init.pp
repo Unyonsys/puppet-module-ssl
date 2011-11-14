@@ -8,6 +8,10 @@ class ssl::common {
     system => true,
   }
 
+  File {
+    group => 'ssl-cert'
+  }
+
 
   file { "${ssl::variables::ssl_root}/services" :
     ensure  => directory,
