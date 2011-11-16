@@ -12,6 +12,6 @@ define ssl::config::apache2 (
     ca      => $ca,
     chain   => $chain,
     link_to => $link_to,
-    #notify  => Service['apache2']
+    notify  => Service['apache2']
   }
 }
