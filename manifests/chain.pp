@@ -1,6 +1,6 @@
 # $chain is a list of files that will be concatenated
 define ssl::chain (
-  $cert_list
+  $cert_hash
   ) {
   include ssl::variables
   include ssl::common
@@ -8,16 +8,20 @@ define ssl::chain (
   ### Bug 6710 - We would not need concacerte if this was working. Passing chain_name is only useful to declare the dependancy at each loop.
   #Ssl::Cert[$cert_list] -> Ssl::Chain[$title]
   
-  concat { "${ssl::variables::ssl_chain}/chain_$name.crt":
+  concat { "${ssl::variables::ssl_chain}/chain_$name.pem":
     owner   => root,
-    group   => root,
+    group   => 'ssl-cert',
     mode    => 0644,
     require => Package['openssl'],
   }
 
-  ssl::concatcerts { $cert_list:
-    target     => "${ssl::variables::ssl_chain}/chain_$name.crt",
+  
+  $keys = keys( $cert_hash )
+  ssl::concatcerts { $keys:
+    target     => "${ssl::variables::ssl_chain}/chain_$name.pem",
     base_path  => $ssl::variables::ssl_certs,
     chain_name => $name,
+    hash       => $cert_hash,
   }
 }
+
