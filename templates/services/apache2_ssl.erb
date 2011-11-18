@@ -3,4 +3,4 @@ SSLOptions              +StdEnvVars +ExportCertData
 SSLCipherSuite          ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 SSLCertificateFile      <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%= cert %>.pem
 SSLCertificateKeyFile   <%= scope.lookupvar("ssl::variables::ssl_private") %>/key_<%= key %>.key
-<% if chain then %>SSLCertificateChainFile  <%= scope.lookupvar("ssl::variables::ssl_chain") %>/chain_<%= chain %>.crt<% end %>
+<% if chain then %>SSLCertificateChainFile  <%= scope.lookupvar("ssl::variables::ssl_chain") %>/chain_<%= chain %>.pem<% end %>
