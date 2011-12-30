@@ -4,7 +4,7 @@ define ssl::ca () {
 
   file { "${ssl::variables::ssl_local_certs}/ca_${name}.crt" :
     ensure  => file,
-    mode    => 0444,
+    mode    => '0444',
     group   => 'ssl-cert',
     source  => "puppet:///files/ssl/ca_${name}.crt",
     require => Package['openssl'],

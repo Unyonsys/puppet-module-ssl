@@ -10,11 +10,11 @@ define ssl::config (
   ) {
   include ssl::variables
   include ssl::common
-  
+
   if ! $key and ! $link_to {
     fail( 'You must pass either $key or $link_to')
   }
-  
+
   if $link_to {
     file { "${ssl::variables::ssl_root}/services/${name}":
       ensure  => link,
@@ -24,13 +24,14 @@ define ssl::config (
   }
   else {
     Ssl::Cert[$cert]         -> Ssl::Config[$name]
-    
-    if $key { Ssl::Key[$key]  -> Ssl::Config[$name] }
-    if $ca  { Ssl::Cert[$ca]  -> Ssl::Config[$name] }
+
+    if $key     { Ssl::Key[$key]      -> Ssl::Config[$name] }
+    if $ca      { Ssl::Cert[$ca]      -> Ssl::Config[$name] }
+    if $chain   { Ssl::Chain[$chain]  -> Ssl::Config[$name] }
 
     file { "${ssl::variables::ssl_root}/services/${name}" :
       ensure  => file,
-      mode    => 0644,
+      mode    => '0644',
       content => template("ssl/services/${service}_ssl.erb"),
     }
   }

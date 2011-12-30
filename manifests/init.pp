@@ -15,27 +15,27 @@ class ssl::common {
 
   file { "${ssl::variables::ssl_root}/services" :
     ensure  => directory,
-    mode    => 0644,
+    mode    => '0644',
     purge   => true,
     require => Package['openssl']
   }
 
   file { $ssl::variables::ssl_local_certs:
     ensure  => directory,
-    mode    => 2775,
+    mode    => '2775',
     purge   => true,
     recurse => true,
     require => Package['openssl'],
   }
-  
-  file { $ssl::variables::ssl_chain:
+
+  file { $ssl::variables::ssl_private:
     ensure  => directory,
-    mode    => 2775,
+    mode    => '0750',
     purge   => true,
     recurse => true,
     require => Package['openssl'],
   }
-  
+
   exec { 'update-ca-certificates':
     command     => '/usr/sbin/update-ca-certificates',
     refreshonly => true,
