@@ -4,13 +4,13 @@ define ssl::concatenate (
   ) {
   include ssl::variables
   include ssl::common
-  
+
   Ssl::Cert[$cert]  -> Ssl::Concatenate[$name]
   Ssl::Ca[$ca]      -> Ssl::Concatenate[$name]
-  
+
   concat { "${ssl::variables::ssl_root}/certs/cert_${cert}_with_ca.crt":
     require => Ssl::Ca[$ca],
-    mode    => 0444,
+    mode    => '0444',
     group   => 'ssl-cert',
   }
 

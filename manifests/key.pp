@@ -4,7 +4,7 @@ define ssl::key () {
 
   file { "${ssl::variables::ssl_private}/key_${name}.key":
     ensure  => file,
-    mode    => 0440,
+    mode    => '0440',
     group   => 'ssl-cert',
     source  => "puppet:///files/ssl/key_${name}.key",
     require => Package['openssl']
