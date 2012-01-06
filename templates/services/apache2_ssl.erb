@@ -4,3 +4,4 @@ SSLCipherSuite          ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EX
 SSLCertificateFile      <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%= cert %>.pem
 SSLCertificateKeyFile   <%= scope.lookupvar("ssl::variables::ssl_private") %>/key_<%= key %>.key
 <% if chain then %>SSLCertificateChainFile  <%= scope.lookupvar("ssl::variables::ssl_chain") %>/chain_<%= chain %>.pem<% end %>
+<% if ca then %>SSLCACertificateFile    <%= scope.lookupvar("ssl::variables::ssl_certs") %>/cert_<%= ca %>.pem<% end %>
