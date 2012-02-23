@@ -9,7 +9,8 @@ class ssl::common {
   }
 
   File {
-    group => 'ssl-cert'
+    require => Package['openssl'],
+    group   => 'ssl-cert',
   }
 
 
@@ -17,7 +18,6 @@ class ssl::common {
     ensure  => directory,
     mode    => '0644',
     purge   => true,
-    require => Package['openssl']
   }
 
   file { $ssl::variables::ssl_local_certs:
@@ -25,15 +25,14 @@ class ssl::common {
     mode    => '2775',
     purge   => true,
     recurse => true,
-    require => Package['openssl'],
   }
 
   file { $ssl::variables::ssl_private:
     ensure  => directory,
     mode    => '0750',
     purge   => true,
+    ignore  => 'ssl-cert-snakeoil.key',
     recurse => true,
-    require => Package['openssl'],
   }
 
   exec { 'update-ca-certificates':
