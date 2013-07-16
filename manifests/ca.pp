@@ -1,4 +1,6 @@
-define ssl::ca () {
+define ssl::ca (
+  $source = "puppet:///files/ssl/cert_${name}.crt",
+) {
   include ssl::variables
   include ssl::common
 
@@ -6,7 +8,7 @@ define ssl::ca () {
     ensure  => file,
     mode    => '0444',
     group   => 'ssl-cert',
-    source  => "puppet:///files/ssl/ca_${name}.crt",
+    source  => $source,
     require => Package['openssl'],
     notify  => Exec['update-ca-certificates'],
   }
